@@ -1,4 +1,5 @@
 import sys
+from newList import NewList
 
 # Программа для подсчета средней арифметической и средней геометрической
 
@@ -9,33 +10,20 @@ def helps():
     print("Используйте -help для вызова справки")
 
 
-def arithmetic():
-    average_arithm = sum(list_of_int) / len(list_of_int)
-    print(average_arithm)
-
-
-def geometric():
-    multi = 1
-    for i in list_of_int:
-        multi *= i
-    average_geom = multi ** (1 / len(list_of_int))
-    print(average_geom)
-
-do = {
-    '-help': helps,
-    '-aA': arithmetic,
-    '-aG': geometric
-}
 
 
 try:
     numeric_list = sys.argv[2:]
-    list_of_int = []
+    list_of_int = NewList([])
     for i in numeric_list:
         list_of_int.append(int(i))
 except IndexError:
     list_of_int = []
-
+do = {
+    '-help': helps,
+    '-aA': list_of_int.arithmetic,
+    '-aG': list_of_int.geometric
+}
 
 try:
     key = sys.argv[1]
