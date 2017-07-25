@@ -1,12 +1,6 @@
-import os
 import sys
 
 # Программа для подсчета средней арифметической и средней геометрической
-
-x = list(input("Введите числа").split(' '))
-list_of_int = []
-for i in x:
-    list_of_int.append(int(i))
 
 
 def helps():
@@ -17,7 +11,7 @@ def helps():
 
 def arithmetic():
     average_arithm = sum(list_of_int) / len(list_of_int)
-    return average_arithm
+    print(average_arithm)
 
 
 def geometric():
@@ -25,5 +19,33 @@ def geometric():
     for i in list_of_int:
         multi *= i
     average_geom = multi ** (1 / len(list_of_int))
-    return average_geom
+    print(average_geom)
 
+do = {
+    '-help': helps,
+    '-aA': arithmetic,
+    '-aG': geometric
+}
+
+
+try:
+    numeric_list = sys.argv[2:]
+    list_of_int = []
+    for i in numeric_list:
+        list_of_int.append(int(i))
+except IndexError:
+    list_of_int = []
+
+
+try:
+    key = sys.argv[1]
+except IndexError:
+    key = None
+
+if key:
+    if key in do:
+        do[key]()
+    else:
+        print('задан неверный ключ')
+else:
+    print("Ключ не задан")
